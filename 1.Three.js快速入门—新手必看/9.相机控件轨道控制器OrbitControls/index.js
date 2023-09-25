@@ -1,5 +1,7 @@
 // 引入threejs
 import * as THREE from 'three'
+// 引入轨道控制器扩展库OrbitControls.js
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 /**
  * 创建3D场景对象Scene
  */
@@ -66,4 +68,17 @@ renderer.setSize(width, height)
 renderer.render(scene, camera)
 // three.js执行渲染命令会输出一个canvas画布，也就是一个HTML元素，你可以插入到web页面中
 document.body.appendChild(renderer.domElement)
+
+// 设置相机控件轨道控制器：OrbitControls
+const controls = new OrbitControls(camera, renderer.domElement)
+// 如果OrbitControls改变了相机参数，重新调用渲染器渲染三维场景
+controls.addEventListener('change', (event) => {
+    // 浏览器控制台查看相机位置变化
+    // console.log('camera.position', camera.position)
+    // 事件参数event
+    console.log('event', event)
+    // 执行渲染操作
+    renderer.render(scene, camera)
+}) // 监听鼠标、键盘事件
+
 
